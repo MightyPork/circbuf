@@ -12,7 +12,7 @@ Usage
 
 uint8_t buffer[32]; // array backing the buffer
 
-CircularByteBuffer cb; // buffer instance
+CircularBuffer cb; // buffer instance
 
 void main()
 {
