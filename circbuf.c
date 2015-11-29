@@ -103,9 +103,27 @@ bool cbuf_write_n(CircularBuffer *inst, const uint8_t *b, uint16_t count)
 }
 
 
+uint16_t cbuf_write_partial(CircularBuffer *inst, const uint8_t *b, uint16_t max)
+{
+	uint16_t  i;
+	for (i = 0; i < max; i++) {
+		if (cbuf_empty(inst)) break;
+		cbuf_write(inst, *(b + i));
+	}
+
+	return i;
+}
+
+
 bool cbuf_write_string(CircularBuffer *inst, const char *str)
 {
 	return cbuf_write_n(inst, (uint8_t *) str, strlen(str));
+}
+
+
+uint16_t cbuf_write_string_partial(CircularBuffer *inst, const char *str)
+{
+	return cbuf_write_partial(inst, (uint8_t *) str, strlen(str));
 }
 
 
@@ -132,7 +150,7 @@ bool cbuf_read_string(CircularBuffer *inst, char *str, uint16_t len)
 }
 
 
-uint16_t cbuf_read_upto(CircularBuffer *inst, uint8_t *buf, uint16_t max)
+uint16_t cbuf_read_partial(CircularBuffer *inst, uint8_t *buf, uint16_t max)
 {
 	uint16_t i;
 	for (i = 0; i < max; i++) {
@@ -144,9 +162,9 @@ uint16_t cbuf_read_upto(CircularBuffer *inst, uint8_t *buf, uint16_t max)
 }
 
 
-uint16_t cbuf_read_string_upto(CircularBuffer *inst, char *str, uint16_t max)
+uint16_t cbuf_read_string_partial(CircularBuffer *inst, char *str, uint16_t max)
 {
-	uint16_t cnt = cbuf_read_upto(inst, (uint8_t *) str, max);
+	uint16_t cnt = cbuf_read_partial(inst, (uint8_t *) str, max);
 	str[cnt] = 0;
 	return cnt;
 }
