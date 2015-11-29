@@ -74,6 +74,10 @@ uint16_t cbuf_read_string_upto(CircularBuffer *inst, char *str, uint16_t max);
 /**
  * Search buffer and return position of the first occurence
  * of the given byte (position relative to read_pos).
+ * 
+ * The returned value is zero-based, add 1 to get string 
+ * length including the delimiter.
+ * 
  * Returns -1 if not found.
  */
 int32_t cbuf_find(CircularBuffer *inst, uint8_t b);
