@@ -107,7 +107,7 @@ uint16_t cbuf_write_partial(CircularBuffer *inst, const uint8_t *b, uint16_t max
 {
 	uint16_t  i;
 	for (i = 0; i < max; i++) {
-		if (cbuf_empty(inst)) break;
+		if (cbuf_full(inst)) break;
 		cbuf_write(inst, *(b + i));
 	}
 
