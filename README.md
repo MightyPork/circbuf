@@ -1,7 +1,9 @@
 Circular byte buffer
 ====================
 
-This is a circular buffer implementation, useful for embedded systems (buffer for UART RX queue etc).
+This is a circular buffer implementation, useful mainly for embedded systems (buffer for UART RX/TX queues etc).
+
+It should be reliable with producent / consumer threads (no race conditions, as no length variable is used).
 
 
 Usage
@@ -9,25 +11,34 @@ Usage
 
 ```c
 #include <stdint.h>
+#include "circbuf.h"
 
-uint8_t buffer[32]; // array backing the buffer
-
-CircularBuffer cb; // buffer instance
+circbuf_t cb; // buffer instance
 
 void main()
 {
-	cbuf_init(&cb, buffer, 32); // init the buffer
+	char c;
+	cbuf_init(&cb, 32); // init the buffer
 	
 	// now it's ready for use!
+	
+	cbuf_write(&cb, 'A');
+	
+	if (cbuf_read(&cb, &c)) {
+		printf("%c", c);
+	}
+	
+	cbuf_deinit(&cb); // free the backing array (in embedded system you don't usually need to, allocate once and keep it)
 }
 ```
 
-Many function return success flag, so make sure to check the return values.
+Most functions return a success flag (true - success), so make sure to check the return values.
 
-False is returned on buffer overflow / underflow, attempted read past available data size etc. See the header file for details.
+False is returned on buffer overflow / underflow. See the header file for details.
 
 
 License
 -------
 
-Do whatever you want with the code.
+I don't care, public domain (I guess).
+

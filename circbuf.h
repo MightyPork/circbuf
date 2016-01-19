@@ -4,7 +4,7 @@
 
 // Circular Character Buffer implementation
 
-typedef struct CircularBuffer_struct {
+typedef struct {
 	uint8_t *buffer;
 	uint16_t capacity;
 	uint16_t read_pos;
