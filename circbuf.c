@@ -79,7 +79,7 @@ bool cbuf_read(circbuf_t *inst, uint8_t *b)
 
 bool cbuf_peek(circbuf_t *inst, size_t nth, uint8_t *b)
 {
-	// check if can read there (can't use module, could "wrap")
+	// check if can read there (can't use modulo, could "wrap")
 	size_t n = inst->lr;
 	for (size_t i = 0; i <= nth; i++) {
 		// increment N
