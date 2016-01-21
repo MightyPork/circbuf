@@ -1,19 +1,20 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 // Circular Character Buffer implementation
 
-typedef struct {
-	uint8_t *buffer;
-	uint16_t capacity;
-	uint16_t read_pos;
-	uint16_t write_pos;
+typedef struct CircularBuffer_struct {
+	uint8_t *buf;
+	size_t cap;
+	size_t lr; // last read pos
+	size_t nw; // next write pos
 } circbuf_t;
 
 
 /** Init a buffer */
-void cbuf_init(circbuf_t *inst, uint16_t length);
+void cbuf_init(circbuf_t *inst, size_t capacity);
 
 
 /** Deinit a buffer (free the memory) */
@@ -40,10 +41,10 @@ bool cbuf_read(circbuf_t *inst, uint8_t *b);
 
 
 /**
- * Get byte at the read cursor, without incrementing it.
- * False on empty.
+ * Get n-th byte from the buffer, without removing it.
+ * Returns false if offset is invalid (ie. empty buffer).
  */
-bool cbuf_peek(circbuf_t *inst, uint8_t *b);
+bool cbuf_peek(circbuf_t *inst, size_t nth, uint8_t *b);
 
 
 /** Remove all data from buffer */
