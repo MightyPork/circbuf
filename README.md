@@ -1,9 +1,13 @@
 Circular byte buffer
 ====================
 
+**(and other buffers)**
+
 This is a circular buffer implementation, useful mainly for embedded systems (buffer for UART RX/TX queues etc).
 
 It should be reliable with producent / consumer threads (no race conditions, as no length variable is used).
+
+A Matching buffer, and Averaging buffer are also included—see their header files for instructions.
 
 
 Usage
@@ -36,9 +40,4 @@ Most functions return a success flag (true - success), so make sure to check the
 
 False is returned on buffer overflow / underflow. See the header file for details.
 
-
-License
--------
-
-I don't care, public domain (I guess).
 
