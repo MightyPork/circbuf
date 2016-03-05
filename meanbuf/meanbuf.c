@@ -4,9 +4,19 @@
 #include "meanbuf.h"
 
 
+struct meanbuf_struct {
+	float * buf; // buffer (allocated at init)
+	size_t cap; // capacity
+	size_t nw; // next write index
+	float mean; // updated on write
+};
+
+
 /** Init a buffer */
-void meanbuf_init(meanbuf_t *mb, size_t size)
+MeanBuf *meanbuf_create(size_t size)
 {
+	MeanBuf *mb = malloc(sizeof(MeanBuf));
+
 	if (size < 1) size = 1;
 
 	mb->buf = calloc(size, sizeof(float)); // calloc, so it starts with zeros.
@@ -18,19 +28,25 @@ void meanbuf_init(meanbuf_t *mb, size_t size)
 	for (uint16_t i = 0; i < size; i++) {
 		mb->buf[i] = 0;
 	}
+
+	return mb;
 }
 
 
-void meanbuf_deinit(meanbuf_t *mb)
+void meanbuf_destroy(MeanBuf *mb)
 {
+	if (mb == NULL) return;
+
 	if (mb->buf != NULL) {
 		free(mb->buf);
 	}
+
+	free(mb);
 }
 
 
 /** Add a value to the buffer. Returns current mean. */
-float meanbuf_add(meanbuf_t *mb, float f)
+float meanbuf_add(MeanBuf *mb, float f)
 {
 	// add sample
 	mb->buf[mb->nw++] = f;

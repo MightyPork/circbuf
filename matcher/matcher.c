@@ -5,6 +5,11 @@
 
 #include "matcher.h"
 
+void matcher_reset(matcher_t *m)
+{
+	m->cursor = 0;
+}
+
 
 /** Handle incoming char. Returns true if this char completed the match. */
 bool matcher_test(matcher_t * m, uint8_t b)
