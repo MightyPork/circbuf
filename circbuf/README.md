@@ -30,7 +30,7 @@ CircBuf *cb; // buffer instance
 
 void main()
 {
-	cb = cbuf_make(32, sizeof(char)); // create a char buffer of size 32.
+	cb = cbuf_create(32, sizeof(char)); // create a char buffer of size 32.
 
 	// now it's ready for use!
 

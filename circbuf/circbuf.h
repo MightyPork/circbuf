@@ -37,7 +37,7 @@ typedef struct circbuf_struct CircBuf;
  * @param elem_size : size of one element
  * @return pointer to the buffer instance
  */
-CircBuf *cbuf_make(size_t capacity, size_t elem_size);
+CircBuf *cbuf_create(size_t capacity, size_t elem_size);
 
 
 /**

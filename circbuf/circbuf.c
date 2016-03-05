@@ -46,7 +46,7 @@ static void read_buffer(const CircBuf *cb, size_t index, void *dest)
 
 
 /** Create a cbuf */
-CircBuf *cbuf_make(size_t capacity, size_t elem_size)
+CircBuf *cbuf_create(size_t capacity, size_t elem_size)
 {
 	// add one, because one is always unused.
 	capacity++;
